@@ -1,26 +1,119 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ─── Theme Configuration (Tailwind v4) ─── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Base colors */
+  --color-navy-950: #0a0e1a;
+  --color-navy-900: #0d1224;
+  --color-navy-800: #111828;
+  --color-navy-700: #1a2035;
+  --color-navy-600: #243049;
+
+  /* Accent colors */
+  --color-cyan-400: #00b4d8;
+  --color-cyan-500: #0096b7;
+  --color-cyan-600: #0077b6;
+  --color-cyan-300: #48cae4;
+
+  /* Text colors */
+  --color-text-primary: #e8edf5;
+  --color-text-secondary: #8892a8;
+  --color-text-tertiary: #4a5568;
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── CSS Custom Properties ─── */
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #0d1224;
+  --bg-surface: #111828;
+  --bg-elevated: #1a2035;
+
+  --accent-primary: #00b4d8;
+  --accent-secondary: #0077b6;
+  --accent-glow: #00b4d8;
+
+  --text-primary: #e8edf5;
+  --text-secondary: #8892a8;
+  --text-tertiary: #4a5568;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(0, 180, 216, 0.3);
+
+  --gradient-hero: linear-gradient(135deg, #0a0e1a 0%, #0d1224 50%, #0a1628 100%);
+  --gradient-accent: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+  --gradient-card: linear-gradient(180deg, rgba(0, 180, 216, 0.05) 0%, transparent 100%);
+  --gradient-radial: radial-gradient(ellipse at center, rgba(0, 180, 216, 0.08) 0%, transparent 70%);
+
+  --glass-bg: rgba(13, 18, 36, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-blur: 20px;
+}
+
+/* ─── Base Styles ─── */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(0, 180, 216, 0.3);
+  color: #e8edf5;
+}
+
+/* ─── Utility Classes ─── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 40px rgba(0, 180, 216, 0.15);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
+}
+
+.gradient-accent {
+  background: var(--gradient-accent);
+}
+
+.gradient-text {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-elevated);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-secondary);
 }

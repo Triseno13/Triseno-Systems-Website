@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest trisenosystems --typescript --tailwind --app --src-dir --eslint --no-import-alias)",
+      "Bash(npm run:*)",
+      "Bash(start http://localhost:3000)"
+    ]
+  }
+}
