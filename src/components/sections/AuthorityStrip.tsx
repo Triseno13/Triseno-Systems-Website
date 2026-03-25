@@ -6,7 +6,7 @@ import { useGSAP, gsap } from "@/hooks/useGSAPSetup";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 
 const stats = [
-  { value: 127, suffix: "+", label: "AI Systems Deployed", prefix: "" },
+  { value: 50, suffix: "+", label: "AI Systems Architected", prefix: "" },
   { value: 3, suffix: "x", label: "Average Workflow Compression", prefix: "" },
   { label: "Autonomous Operations", display: "24/7" },
   { label: "Concept to Deployment", display: "<6 Weeks" },
@@ -61,7 +61,7 @@ export default function AuthorityStrip() {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
         {/* Tagline */}
         <p className="text-center font-mono text-xs tracking-[0.25em] uppercase text-cyan-400/50 mb-16">
-          Trusted Infrastructure for Enterprise AI
+          AI Infrastructure for Operations, Intelligence & Scale
         </p>
 
         {/* Stats grid */}

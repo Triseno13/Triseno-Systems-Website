@@ -53,11 +53,11 @@ export default function Navbar() {
               className="relative flex-shrink-0"
             >
               <Image
-                src="/images/triseno-logo.png"
+                src="/images/triseno-logo.jpeg"
                 alt="Triseno Systems"
-                width={160}
-                height={40}
-                className="h-10 w-auto object-contain"
+                width={120}
+                height={60}
+                className="h-12 w-auto object-contain"
                 priority
               />
             </a>
@@ -87,7 +87,7 @@ export default function Navbar() {
                 href="#contact"
                 size="default"
               >
-                Start a Project
+                Start a Conversation
               </Button>
             </div>
 
@@ -144,7 +144,7 @@ export default function Navbar() {
                   href="#contact"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Start a Project
+                  Start a Conversation
                 </Button>
               </motion.div>
             </nav>

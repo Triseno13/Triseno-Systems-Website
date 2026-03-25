@@ -18,35 +18,35 @@ const steps = [
     title: "DIAGNOSE",
     icon: MagnifyingGlass,
     description:
-      "We audit your operations, map decision points, and identify where AI creates real leverage — not where it sounds impressive.",
+      "We map your operational workflows, identify compression opportunities, and quantify the cost of every problem worth solving. No guesswork. No generic audits. A technical assessment built around your actual architecture.",
   },
   {
     number: "02",
     title: "ARCHITECT",
     icon: Blueprint,
     description:
-      "Solution blueprints with technical specifications, integration maps, and measurable success criteria. You approve the system before we write a line of code.",
+      "Solution blueprints that specify agent roles, data flows, integration points, fallback logic, and success metrics before a single line of code is written. You see the system before it exists.",
   },
   {
     number: "03",
     title: "BUILD",
     icon: Code,
     description:
-      "Modular development with weekly visibility. Every component is testable, deployable, and documented. No black boxes.",
+      "Modular construction with continuous testing. Each agent, each pipeline, each decision node is built to be independently testable, replaceable, and scalable. No monoliths. No black boxes.",
   },
   {
     number: "04",
     title: "DEPLOY",
     icon: Rocket,
     description:
-      "Production launch with monitoring, failover protocols, and your team trained to operate the system independently.",
+      "Production deployment with monitoring, performance benchmarking, and iterative refinement. Knowledge transfer to your team so the system isn't a black box. Continuous optimization begins immediately.",
   },
   {
     number: "05",
     title: "COMPOUND",
     icon: TrendUp,
     description:
-      "Continuous optimization, model refinement, and expansion roadmapping. Your AI infrastructure should get smarter every month.",
+      "Systems get smarter over time. Ongoing optimization, expansion roadmapping, and strategic advisory through infrastructure retainers. Your AI compounds — it doesn't depreciate.",
   },
 ];
 

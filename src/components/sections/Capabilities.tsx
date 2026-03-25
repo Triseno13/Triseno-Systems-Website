@@ -10,6 +10,7 @@ import {
   Package,
   Broadcast,
   ChartLineUp,
+  Browser,
 } from "@phosphor-icons/react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
@@ -49,12 +50,20 @@ const capabilities = [
     span: "",
   },
   {
-    icon: Broadcast,
-    title: "Broadcast & Media AI",
+    icon: Browser,
+    title: "Website Design & Development",
     description:
-      "Production automation built by someone who's lived in the control room. Metadata intelligence, content routing, asset orchestration, and real-time decision systems for media workflows.",
-    tag: "Media",
+      "High-performance websites engineered with the same systems thinking we bring to everything else. Not templates — custom-built, conversion-optimized digital infrastructure designed to represent your brand at the level your business operates.",
+    tag: "Digital",
     span: "md:col-span-2",
+  },
+  {
+    icon: Broadcast,
+    title: "Broadcast & Production AI",
+    description:
+      "Production automation built by someone who's lived in the control room. Metadata intelligence, content routing, asset orchestration, and real-time decision systems for broadcast, film, live events, and media production workflows.",
+    tag: "Media",
+    span: "",
   },
   {
     icon: ChartLineUp,

@@ -16,6 +16,17 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const serviceLinks = [
+  "AI Operations Audit",
+  "Multi-Agent Orchestration",
+  "Product & Catalog Intelligence",
+  "Workflow Compression",
+  "Revenue Operations",
+  "Website Design & Development",
+  "Broadcast & Production AI",
+  "Infrastructure Retainers",
+];
+
 const socialLinks = [
   { icon: LinkedinLogo, href: "#", label: "LinkedIn" },
   { icon: XLogo, href: "#", label: "X" },
@@ -32,19 +43,19 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/[0.06] bg-navy-900">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="relative w-36 h-9">
+            <div className="relative w-40 h-20">
               <Image
-                src="/images/triseno-logo.png"
+                src="/images/triseno-logo.jpeg"
                 alt="Triseno Systems"
                 fill
                 className="object-contain object-left"
               />
             </div>
-            <p className="text-sm text-text-tertiary font-mono tracking-wider">
-              AI Infrastructure. Engineered Leverage.
+            <p className="text-sm text-text-secondary leading-relaxed">
+              AI infrastructure for operations, intelligence, and scale.
             </p>
           </div>
 
@@ -66,6 +77,22 @@ export default function Footer() {
                   >
                     {link.label}
                   </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="text-sm font-semibold text-text-primary mb-4 tracking-wider uppercase">
+              Services
+            </h4>
+            <ul className="space-y-3">
+              {serviceLinks.map((service) => (
+                <li key={service}>
+                  <span className="text-sm text-text-secondary">
+                    {service}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -102,8 +129,8 @@ export default function Footer() {
           <p className="text-xs text-text-tertiary">
             &copy; 2026 Triseno Systems. All rights reserved.
           </p>
-          <p className="text-xs text-text-tertiary font-mono">
-            AI Infrastructure. Engineered Leverage.
+          <p className="text-xs text-text-tertiary font-mono tracking-wider">
+            Tristen@trisenosystems.com
           </p>
         </div>
       </div>

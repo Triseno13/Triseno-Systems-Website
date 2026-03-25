@@ -8,40 +8,261 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 
 const projects = [
   {
-    title: "Catalog Intelligence System",
-    industry: "Industrial Equipment Distribution",
-    challenge:
-      "47,000 SKU catalog with complex compatibility requirements. Sales team spending 3+ hours per custom quote.",
-    solution:
-      "AI-powered product intelligence system that understands specifications, cross-references compatibility, and generates accurate quotes in under 2 minutes.",
-    metric: "85%",
-    metricLabel: "reduction in quote generation time",
-    result: "$2.1M attributed revenue in first quarter.",
+    title: "Multi-Agent Orchestration Pipeline",
+    category: "Agent Architecture",
+    problem:
+      "Complex workflows that require research, analysis, generation, and validation — running sequentially through human teams, creating bottlenecks at every handoff.",
+    architecture:
+      "Coordinated AI agents operating in parallel execution paths. A research agent pulls context, an analysis agent evaluates against criteria, a generation agent produces outputs, and a validation agent checks accuracy and compliance — all orchestrated through a central decision layer.",
+    outcome:
+      "Deterministic, parallel execution replacing sequential human workflows. Modular agents that can be reconfigured, swapped, or scaled independently.",
+    nodes: [
+      { x: 80, y: 80, label: "INPUT", size: 5 },
+      { x: 200, y: 40, label: "RESEARCH", size: 4 },
+      { x: 200, y: 120, label: "ANALYSIS", size: 4 },
+      { x: 340, y: 80, label: "ORCHESTRATE", size: 7 },
+      { x: 460, y: 40, label: "GENERATE", size: 4 },
+      { x: 460, y: 120, label: "VALIDATE", size: 4 },
+      { x: 580, y: 80, label: "OUTPUT", size: 5 },
+    ],
+    edges: [
+      [0, 1], [0, 2], [1, 3], [2, 3], [3, 4], [3, 5], [4, 6], [5, 6],
+    ],
   },
   {
-    title: "Multi-Agent Content Operations",
-    industry: "Media & Broadcast",
-    challenge:
-      "Manual content metadata tagging, routing, and compliance review creating 48-hour bottlenecks in production pipeline.",
-    solution:
-      "Coordinated agent system — one handles metadata extraction, another manages compliance checks, a third handles routing and scheduling. All orchestrated through a central decision layer.",
-    metric: "48h",
-    metricLabel: "pipeline compressed to 90 minutes",
-    result: "Zero compliance misses in 6 months of operation.",
+    title: "Workflow Compression Engine",
+    category: "Workflow Compression",
+    problem:
+      "Multi-step document processing, approval chains, and data reconciliation workflows consuming 40+ hours per cycle across distributed teams.",
+    architecture:
+      "Intelligent pipeline that maps operational workflows and redesigns them as compressed execution layers. A 12-step manual process becomes a 2-layer agent system with automated routing, parallel processing, and exception handling.",
+    outcome:
+      "Operational processes compressed from days to minutes. Continuous monitoring and optimization ensures compression ratios improve over time.",
+    nodes: [
+      { x: 60, y: 80, label: "INGEST", size: 5 },
+      { x: 170, y: 40, label: "PARSE", size: 4 },
+      { x: 170, y: 120, label: "CLASSIFY", size: 4 },
+      { x: 300, y: 60, label: "PROCESS", size: 6 },
+      { x: 300, y: 120, label: "RECONCILE", size: 4 },
+      { x: 430, y: 80, label: "ROUTE", size: 5 },
+      { x: 560, y: 50, label: "APPROVE", size: 4 },
+      { x: 560, y: 110, label: "ARCHIVE", size: 4 },
+    ],
+    edges: [
+      [0, 1], [0, 2], [1, 3], [2, 4], [3, 5], [4, 5], [5, 6], [5, 7],
+    ],
   },
   {
-    title: "Revenue Intelligence Engine",
-    industry: "B2B SaaS",
-    challenge:
-      "Sales team qualifying leads manually, missing high-intent signals buried in CRM data, support tickets, and usage analytics.",
-    solution:
-      "AI system that scores leads in real-time by synthesizing CRM activity, product usage patterns, and support interactions. Automated outreach triggers for high-probability conversions.",
-    metric: "340%",
-    metricLabel: "increase in qualified pipeline",
-    result:
-      "Sales team focused exclusively on high-value conversations.",
+    title: "Broadcast Metadata Intelligence",
+    category: "Broadcast & Media AI",
+    problem:
+      "Real-time production environments generating massive volumes of media assets with manual metadata tagging, content routing, and compliance review creating critical bottlenecks.",
+    architecture:
+      "A production-grade metadata intelligence system designed for broadcast control room environments. Real-time extraction, intelligent tagging, automated compliance checks, and content routing logic operating at broadcast speed with zero-tolerance for errors.",
+    outcome:
+      "Production-speed metadata management with automated compliance monitoring. Content routing decisions made in real-time, eliminating manual bottlenecks in live production workflows.",
+    nodes: [
+      { x: 80, y: 80, label: "INGEST", size: 5 },
+      { x: 200, y: 30, label: "EXTRACT", size: 4 },
+      { x: 200, y: 80, label: "TAG", size: 4 },
+      { x: 200, y: 130, label: "COMPLY", size: 4 },
+      { x: 370, y: 80, label: "DECISION", size: 6 },
+      { x: 500, y: 40, label: "ROUTE", size: 4 },
+      { x: 500, y: 120, label: "ARCHIVE", size: 4 },
+    ],
+    edges: [
+      [0, 1], [0, 2], [0, 3], [1, 4], [2, 4], [3, 4], [4, 5], [4, 6],
+    ],
   },
 ];
+
+/* ─── Animated Architecture Diagram ─── */
+function ArchitectureDiagram({
+  nodes,
+  edges,
+}: {
+  nodes: { x: number; y: number; label: string; size: number }[];
+  edges: number[][];
+}) {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  useGSAP(
+    () => {
+      if (shouldReduceMotion || !svgRef.current) return;
+
+      // Draw connection lines
+      const lines = svgRef.current.querySelectorAll(".arch-edge");
+      lines.forEach((line, i) => {
+        gsap.fromTo(
+          line,
+          { strokeDashoffset: 300 },
+          {
+            strokeDashoffset: 0,
+            duration: 1.5,
+            ease: "power2.inOut",
+            scrollTrigger: {
+              trigger: svgRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+            delay: i * 0.1,
+          }
+        );
+      });
+
+      // Light up nodes
+      const nodeEls = svgRef.current.querySelectorAll(".arch-node");
+      nodeEls.forEach((node, i) => {
+        gsap.fromTo(
+          node,
+          { opacity: 0, scale: 0 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: svgRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+            delay: 0.3 + i * 0.12,
+          }
+        );
+      });
+
+      // Pulse glow rings after build
+      const rings = svgRef.current.querySelectorAll(".arch-ring");
+      rings.forEach((ring, i) => {
+        gsap.to(ring, {
+          opacity: 0,
+          scale: 1.8,
+          duration: 2,
+          ease: "power1.out",
+          repeat: -1,
+          delay: 2 + i * 0.6,
+          transformOrigin: "center",
+        });
+      });
+
+      // Labels fade in
+      const labels = svgRef.current.querySelectorAll(".arch-label");
+      labels.forEach((label, i) => {
+        gsap.fromTo(
+          label,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 0.4,
+            scrollTrigger: {
+              trigger: svgRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+            delay: 0.8 + i * 0.12,
+          }
+        );
+      });
+    },
+    { scope: svgRef }
+  );
+
+  return (
+    <svg
+      ref={svgRef}
+      viewBox="0 0 640 160"
+      fill="none"
+      className="w-full h-full"
+      aria-hidden="true"
+    >
+      {/* Grid dots */}
+      {Array.from({ length: 8 }).map((_, row) =>
+        Array.from({ length: 16 }).map((_, col) => (
+          <circle
+            key={`gd-${row}-${col}`}
+            cx={20 + col * 40}
+            cy={10 + row * 20}
+            r="0.5"
+            fill="rgba(0, 180, 216, 0.08)"
+          />
+        ))
+      )}
+
+      {/* Edges */}
+      {edges.map(([from, to], i) => (
+        <line
+          key={`edge-${i}`}
+          className="arch-edge"
+          x1={nodes[from].x}
+          y1={nodes[from].y}
+          x2={nodes[to].x}
+          y2={nodes[to].y}
+          stroke="rgba(0, 180, 216, 0.25)"
+          strokeWidth="1"
+          strokeDasharray="300"
+        />
+      ))}
+
+      {/* Nodes */}
+      {nodes.map((node, i) => (
+        <g key={`node-${i}`}>
+          <circle
+            className="arch-ring"
+            cx={node.x}
+            cy={node.y}
+            r={node.size * 2}
+            stroke="rgba(0, 180, 216, 0.2)"
+            strokeWidth="0.5"
+            fill="none"
+            opacity="0.4"
+          />
+          <circle
+            className="arch-node"
+            cx={node.x}
+            cy={node.y}
+            r={node.size}
+            fill="#00b4d8"
+            opacity="0"
+            style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+          />
+          <circle
+            className="arch-node"
+            cx={node.x}
+            cy={node.y}
+            r={node.size * 0.4}
+            fill="#fff"
+            opacity="0"
+            style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+          />
+          <text
+            className="arch-label"
+            x={node.x}
+            y={node.y + node.size + 12}
+            textAnchor="middle"
+            fill="rgba(0, 180, 216, 0.5)"
+            fontSize="7"
+            fontFamily="monospace"
+            opacity="0"
+          >
+            {node.label}
+          </text>
+        </g>
+      ))}
+
+      {/* Edge gradients */}
+      <defs>
+        <linearGradient id="archFade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#0a0e1a" stopOpacity="1" />
+          <stop offset="8%" stopColor="#0a0e1a" stopOpacity="0" />
+          <stop offset="92%" stopColor="#0a0e1a" stopOpacity="0" />
+          <stop offset="100%" stopColor="#0a0e1a" stopOpacity="1" />
+        </linearGradient>
+      </defs>
+      <rect width="640" height="160" fill="url(#archFade)" />
+    </svg>
+  );
+}
 
 export default function Showcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -77,9 +298,9 @@ export default function Showcase() {
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Proof of Work"
-          title="Built. Deployed. Performing."
-          description="Real systems in production. Not concepts. Not demos."
+          eyebrow="Proof of Architecture"
+          title="What We Build in Practice"
+          description="System architecture patterns we design and deploy. Not concepts — production-grade infrastructure built for real operational environments."
         />
 
         <div className="space-y-20 md:space-y-32">
@@ -93,9 +314,9 @@ export default function Showcase() {
                   i % 2 === 1 ? "lg:direction-rtl" : ""
                 }`}
               >
-                {/* Metric side */}
+                {/* Architecture diagram side */}
                 <div className={`${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                  <div className="relative p-10 md:p-16 rounded-2xl bg-navy-800/30 border border-white/[0.06] overflow-hidden">
+                  <div className="relative p-8 md:p-12 rounded-2xl bg-navy-800/30 border border-white/[0.06] overflow-hidden">
                     {/* Left accent border */}
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-cyan-600" />
 
@@ -104,14 +325,14 @@ export default function Showcase() {
 
                     <div className="relative">
                       <span className="font-mono text-sm text-cyan-400/60 tracking-wider uppercase">
-                        {project.industry}
+                        {project.category}
                       </span>
-                      <div className="mt-6 text-6xl md:text-7xl font-bold text-text-primary text-glow-cyan">
-                        {project.metric}
+                      <div className="mt-4 h-[140px] md:h-[160px]">
+                        <ArchitectureDiagram
+                          nodes={project.nodes}
+                          edges={project.edges}
+                        />
                       </div>
-                      <p className="mt-2 text-lg text-text-secondary">
-                        {project.metricLabel}
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -128,28 +349,28 @@ export default function Showcase() {
                     <div className="space-y-4">
                       <div>
                         <span className="text-sm font-mono text-cyan-400/80 uppercase tracking-wider">
-                          Challenge
+                          The Problem
                         </span>
                         <p className="mt-1 text-text-secondary leading-relaxed">
-                          {project.challenge}
+                          {project.problem}
                         </p>
                       </div>
 
                       <div>
                         <span className="text-sm font-mono text-cyan-400/80 uppercase tracking-wider">
-                          Solution
+                          The Architecture
                         </span>
                         <p className="mt-1 text-text-secondary leading-relaxed">
-                          {project.solution}
+                          {project.architecture}
                         </p>
                       </div>
 
                       <div>
                         <span className="text-sm font-mono text-cyan-400/80 uppercase tracking-wider">
-                          Result
+                          The Result
                         </span>
                         <p className="mt-1 text-text-primary font-medium">
-                          {project.result}
+                          {project.outcome}
                         </p>
                       </div>
                     </div>

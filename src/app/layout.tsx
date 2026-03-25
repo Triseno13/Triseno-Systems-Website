@@ -15,23 +15,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Triseno Systems — AI Infrastructure, Engineered",
+  title: "Triseno Systems | AI Infrastructure for Operations & Scale",
   description:
-    "Triseno Systems designs AI infrastructure that compresses workflows, automates decision-making, and turns operational complexity into competitive advantage.",
+    "Multi-agent orchestration, workflow compression, and decision-layer automation. Triseno Systems builds the operational AI layer for complex enterprises.",
+  icons: {
+    icon: "/images/triseno-logo.jpeg",
+    apple: "/images/triseno-logo.jpeg",
+  },
   openGraph: {
-    title: "Triseno Systems — AI Infrastructure, Engineered",
+    title: "Triseno Systems | AI Infrastructure for Operations & Scale",
     description:
-      "We build the intelligence layer your business runs on. Multi-agent orchestration, workflow compression, and decision-layer automation.",
+      "Multi-agent orchestration, workflow compression, and decision-layer automation. Triseno Systems builds the operational AI layer for complex enterprises.",
     url: "https://trisenosystems.com",
     siteName: "Triseno Systems",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/images/triseno-logo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Triseno Systems",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Triseno Systems — AI Infrastructure, Engineered",
+    title: "Triseno Systems | AI Infrastructure for Operations & Scale",
     description:
-      "We build the intelligence layer your business runs on.",
+      "Multi-agent orchestration, workflow compression, and decision-layer automation.",
   },
   robots: {
     index: true,

@@ -285,17 +285,17 @@ export default function Hero() {
             </h1>
 
             <p className="hero-sub max-w-xl text-lg md:text-xl text-text-secondary leading-relaxed">
-              Triseno Systems designs AI infrastructure that compresses
-              workflows, automates decision-making, and turns operational
-              complexity into competitive advantage.
+              Triseno Systems designs and deploys AI infrastructure — multi-agent
+              orchestration, workflow compression engines, and decision-layer
+              automation for organizations that need systems, not features.
             </p>
 
             <div className="hero-ctas flex flex-col sm:flex-row gap-4">
               <Button variant="primary" size="large" href="#capabilities">
-                Explore Capabilities
+                Explore What We Build
               </Button>
               <Button variant="secondary" size="large" href="#contact">
-                Start a Project
+                Start a Conversation
               </Button>
             </div>
           </div>
