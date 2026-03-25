@@ -184,37 +184,48 @@ export default function Hero() {
 
   useGSAP(
     () => {
-      if (shouldReduceMotion || !containerRef.current) return;
+      if (!containerRef.current) return;
 
       const words = containerRef.current.querySelectorAll(".hero-word");
       const sub = containerRef.current.querySelector(".hero-sub");
       const ctas = containerRef.current.querySelector(".hero-ctas");
 
+      if (shouldReduceMotion) {
+        // Ensure everything is visible even with reduced motion
+        gsap.set([words, sub, ctas], { opacity: 1, y: 0, scale: 1 });
+        return;
+      }
+
+      // Set initial state explicitly so elements are controlled by GSAP
+      gsap.set(words, { opacity: 0, y: "100%" });
+      gsap.set(sub, { opacity: 0, y: 20 });
+      gsap.set(ctas, { opacity: 0, y: 20, scale: 0.95 });
+
       const tl = gsap.timeline({ delay: 0.3 });
 
-      tl.from(words, {
-        y: "100%",
-        opacity: 0,
+      tl.to(words, {
+        y: "0%",
+        opacity: 1,
         duration: 0.7,
         stagger: 0.08,
         ease: "power3.out",
       })
-        .from(
+        .to(
           sub,
           {
-            opacity: 0,
-            y: 20,
+            opacity: 1,
+            y: 0,
             duration: 0.6,
             ease: "power2.out",
           },
           "-=0.2"
         )
-        .from(
+        .to(
           ctas,
           {
-            opacity: 0,
-            y: 20,
-            scale: 0.95,
+            opacity: 1,
+            y: 0,
+            scale: 1,
             duration: 0.5,
             ease: "power2.out",
           },

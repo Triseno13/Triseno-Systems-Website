@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npx create-next-app@latest trisenosystems --typescript --tailwind --app --src-dir --eslint --no-import-alias)",
       "Bash(npm run:*)",
-      "Bash(start http://localhost:3000)"
+      "Bash(start http://localhost:3000)",
+      "Bash(npx next:*)",
+      "Bash(find 'c:/Users/trist/Triseno Website v2 AG/src' -type f \\\\\\(-name *.json -o -name *.config.* \\\\\\))"
     ]
   }
 }

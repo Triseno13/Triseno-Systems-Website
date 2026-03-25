@@ -1,5 +1,8 @@
 "use client";
 
+import { useRef } from "react";
+import { useReducedMotion } from "framer-motion";
+import { useGSAP, gsap } from "@/hooks/useGSAPSetup";
 import {
   CirclesThreePlus,
   Lightning,
@@ -18,6 +21,7 @@ const capabilities = [
     title: "Multi-Agent Orchestration",
     description:
       "Coordinated AI agent systems that divide complex workflows into parallel execution paths — research, analysis, generation, and validation running simultaneously. Not one bot. An entire operations team.",
+    tag: "Core Platform",
     span: "md:col-span-2",
   },
   {
@@ -25,6 +29,7 @@ const capabilities = [
     title: "Workflow Compression Engines",
     description:
       "We identify the 40-hour processes buried in your operations and engineer them down to minutes. Document processing, approval chains, data reconciliation — compressed, automated, monitored.",
+    tag: "Automation",
     span: "",
   },
   {
@@ -32,6 +37,7 @@ const capabilities = [
     title: "Decision-Layer Automation",
     description:
       "AI systems that don't just surface data — they make recommendations, flag anomalies, and execute decisions within parameters you define. Your judgment, operating at machine speed.",
+    tag: "Intelligence",
     span: "",
   },
   {
@@ -39,6 +45,7 @@ const capabilities = [
     title: "Product & Catalog Intelligence",
     description:
       "Transform sprawling product catalogs into intelligent systems that understand specifications, compatibility, and context. Your customers get expert-level guidance. Your team gets freed from repetitive inquiries.",
+    tag: "Commerce",
     span: "",
   },
   {
@@ -46,6 +53,7 @@ const capabilities = [
     title: "Broadcast & Media AI",
     description:
       "Production automation built by someone who's lived in the control room. Metadata intelligence, content routing, asset orchestration, and real-time decision systems for media workflows.",
+    tag: "Media",
     span: "md:col-span-2",
   },
   {
@@ -53,9 +61,196 @@ const capabilities = [
     title: "Revenue Operations Intelligence",
     description:
       "Lead qualification, pipeline acceleration, and conversion optimization powered by AI that understands your sales process. Outcome-tied pricing means we only win when you do.",
+    tag: "Revenue",
     span: "",
   },
 ];
+
+/* ─── Animated Network Graph ─── */
+function NetworkVisualization() {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  useGSAP(
+    () => {
+      if (shouldReduceMotion || !svgRef.current) return;
+
+      // Pulse the nodes
+      const nodes = svgRef.current.querySelectorAll(".net-node");
+      nodes.forEach((node, i) => {
+        gsap.to(node, {
+          opacity: 0.3,
+          duration: 1.5 + i * 0.3,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          delay: i * 0.5,
+        });
+      });
+
+      // Animate data flow along edges
+      const flows = svgRef.current.querySelectorAll(".data-flow");
+      flows.forEach((flow, i) => {
+        gsap.fromTo(
+          flow,
+          { strokeDashoffset: 100 },
+          {
+            strokeDashoffset: 0,
+            duration: 3 + i * 0.5,
+            ease: "none",
+            repeat: -1,
+            delay: i * 0.8,
+          }
+        );
+      });
+
+      // Pulse the rings
+      const rings = svgRef.current.querySelectorAll(".pulse-ring");
+      rings.forEach((ring, i) => {
+        gsap.fromTo(
+          ring,
+          { scale: 0.8, opacity: 0.4, transformOrigin: "center" },
+          {
+            scale: 1.4,
+            opacity: 0,
+            duration: 2.5,
+            ease: "power1.out",
+            repeat: -1,
+            delay: i * 1.2,
+          }
+        );
+      });
+    },
+    { scope: svgRef }
+  );
+
+  return (
+    <svg
+      ref={svgRef}
+      viewBox="0 0 800 200"
+      fill="none"
+      className="w-full h-full"
+      aria-hidden="true"
+    >
+      {/* Subtle grid */}
+      {Array.from({ length: 20 }).map((_, i) => (
+        <line
+          key={`vg-${i}`}
+          x1={i * 42}
+          y1="0"
+          x2={i * 42}
+          y2="200"
+          stroke="rgba(0, 180, 216, 0.03)"
+          strokeWidth="0.5"
+        />
+      ))}
+      {Array.from({ length: 6 }).map((_, i) => (
+        <line
+          key={`hg-${i}`}
+          x1="0"
+          y1={i * 40}
+          x2="800"
+          y2={i * 40}
+          stroke="rgba(0, 180, 216, 0.03)"
+          strokeWidth="0.5"
+        />
+      ))}
+
+      {/* Connection lines */}
+      <path
+        className="data-flow"
+        d="M120 100 L260 60"
+        stroke="rgba(0, 180, 216, 0.2)"
+        strokeWidth="1"
+        strokeDasharray="4 8"
+      />
+      <path
+        className="data-flow"
+        d="M120 100 L280 140"
+        stroke="rgba(0, 180, 216, 0.15)"
+        strokeWidth="1"
+        strokeDasharray="4 8"
+      />
+      <path
+        className="data-flow"
+        d="M260 60 L400 100"
+        stroke="rgba(0, 180, 216, 0.2)"
+        strokeWidth="1"
+        strokeDasharray="4 8"
+      />
+      <path
+        className="data-flow"
+        d="M280 140 L400 100"
+        stroke="rgba(0, 180, 216, 0.15)"
+        strokeWidth="1"
+        strokeDasharray="4 8"
+      />
+      <path
+        className="data-flow"
+        d="M400 100 L540 55"
+        stroke="rgba(0, 180, 216, 0.2)"
+        strokeWidth="1"
+        strokeDasharray="4 8"
+      />
+      <path
+        className="data-flow"
+        d="M400 100 L520 145"
+        stroke="rgba(0, 180, 216, 0.15)"
+        strokeWidth="1"
+        strokeDasharray="4 8"
+      />
+      <path
+        className="data-flow"
+        d="M540 55 L680 100"
+        stroke="rgba(0, 180, 216, 0.2)"
+        strokeWidth="1"
+        strokeDasharray="4 8"
+      />
+      <path
+        className="data-flow"
+        d="M520 145 L680 100"
+        stroke="rgba(0, 180, 216, 0.15)"
+        strokeWidth="1"
+        strokeDasharray="4 8"
+      />
+
+      {/* Central hub node */}
+      <circle className="net-node" cx="400" cy="100" r="8" fill="#00b4d8" opacity="0.8" />
+      <circle className="pulse-ring" cx="400" cy="100" r="16" stroke="rgba(0, 180, 216, 0.3)" strokeWidth="1" fill="none" />
+      <circle cx="400" cy="100" r="3" fill="#fff" opacity="0.9" />
+
+      {/* Input nodes - left */}
+      <circle className="net-node" cx="120" cy="100" r="5" fill="#00b4d8" opacity="0.6" />
+      <circle className="pulse-ring" cx="120" cy="100" r="10" stroke="rgba(0, 180, 216, 0.2)" strokeWidth="0.5" fill="none" />
+
+      {/* Processing nodes */}
+      <circle className="net-node" cx="260" cy="60" r="4" fill="#00b4d8" opacity="0.7" />
+      <circle className="net-node" cx="280" cy="140" r="4" fill="#00b4d8" opacity="0.5" />
+      <circle className="net-node" cx="540" cy="55" r="4" fill="#00b4d8" opacity="0.6" />
+      <circle className="net-node" cx="520" cy="145" r="4" fill="#00b4d8" opacity="0.5" />
+
+      {/* Output node - right */}
+      <circle className="net-node" cx="680" cy="100" r="5" fill="#00b4d8" opacity="0.6" />
+      <circle className="pulse-ring" cx="680" cy="100" r="10" stroke="rgba(0, 180, 216, 0.2)" strokeWidth="0.5" fill="none" />
+
+      {/* Labels */}
+      <text x="120" y="125" textAnchor="middle" fill="rgba(0, 180, 216, 0.4)" fontSize="8" fontFamily="monospace">INPUT</text>
+      <text x="400" y="130" textAnchor="middle" fill="rgba(0, 180, 216, 0.5)" fontSize="8" fontFamily="monospace">ORCHESTRATION</text>
+      <text x="680" y="125" textAnchor="middle" fill="rgba(0, 180, 216, 0.4)" fontSize="8" fontFamily="monospace">OUTPUT</text>
+
+      {/* Gradient overlay */}
+      <defs>
+        <linearGradient id="capFade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#0a0e1a" stopOpacity="1" />
+          <stop offset="10%" stopColor="#0a0e1a" stopOpacity="0" />
+          <stop offset="90%" stopColor="#0a0e1a" stopOpacity="0" />
+          <stop offset="100%" stopColor="#0a0e1a" stopOpacity="1" />
+        </linearGradient>
+      </defs>
+      <rect width="800" height="200" fill="url(#capFade)" />
+    </svg>
+  );
+}
 
 export default function Capabilities() {
   return (
@@ -70,19 +265,35 @@ export default function Capabilities() {
           description="We don't build chatbots. We build the operational intelligence layer underneath — the systems that compress decisions, orchestrate agents, and turn complexity into leverage."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Animated network visualization */}
+        <ScrollReveal className="mb-16">
+          <div className="relative h-[160px] md:h-[200px] rounded-2xl overflow-hidden border border-white/[0.04] bg-navy-900/30">
+            <NetworkVisualization />
+          </div>
+        </ScrollReveal>
+
+        {/* Capability cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {capabilities.map((cap, i) => (
-            <ScrollReveal key={i} delay={i * 0.1} className={cap.span}>
-              <Card className="p-8 h-full">
-                <cap.icon
-                  size={32}
-                  weight="duotone"
-                  className="text-cyan-400 mb-6"
-                />
-                <h3 className="text-xl font-semibold text-text-primary mb-4">
+            <ScrollReveal key={i} delay={i * 0.08} className={cap.span}>
+              <Card className="p-8 h-full group">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-cyan-400/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    <cap.icon
+                      size={32}
+                      weight="duotone"
+                      className="relative text-cyan-400"
+                    />
+                  </div>
+                  <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-text-tertiary border border-white/[0.06] rounded-full px-3 py-1">
+                    {cap.tag}
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-text-primary mb-3">
                   {cap.title}
                 </h3>
-                <p className="text-text-secondary leading-relaxed">
+                <p className="text-text-secondary leading-relaxed text-[15px]">
                   {cap.description}
                 </p>
               </Card>

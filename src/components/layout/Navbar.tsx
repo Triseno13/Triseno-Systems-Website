@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { List, X } from "@phosphor-icons/react";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 
 const navLinks = [
@@ -49,12 +50,16 @@ export default function Navbar() {
                 e.preventDefault();
                 scrollTo("#home");
               }}
-              className="relative w-40 h-10 flex-shrink-0"
+              className="relative flex-shrink-0"
             >
-              <span className="text-xl font-bold tracking-tight">
-                <span className="text-text-primary">TRISENO</span>
-                <span className="text-cyan-400"> SYSTEMS</span>
-              </span>
+              <Image
+                src="/images/triseno-logo.png"
+                alt="Triseno Systems"
+                width={160}
+                height={40}
+                className="h-10 w-auto object-contain"
+                priority
+              />
             </a>
 
             {/* Desktop Links */}

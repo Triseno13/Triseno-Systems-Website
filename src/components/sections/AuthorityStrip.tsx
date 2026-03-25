@@ -1,51 +1,112 @@
 "use client";
 
+import { useRef } from "react";
+import { useReducedMotion } from "framer-motion";
+import { useGSAP, gsap } from "@/hooks/useGSAPSetup";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
-import ScrollReveal from "@/components/animations/ScrollReveal";
 
 const stats = [
-  { value: 50, suffix: "+", label: "AI Systems Architected" },
-  { value: 3, suffix: "x", label: "Average Workflow Compression" },
+  { value: 127, suffix: "+", label: "AI Systems Deployed", prefix: "" },
+  { value: 3, suffix: "x", label: "Average Workflow Compression", prefix: "" },
   { label: "Autonomous Operations", display: "24/7" },
-  { label: "Concept to Deployment", display: "<8 Weeks" },
+  { label: "Concept to Deployment", display: "<6 Weeks" },
 ];
 
 export default function AuthorityStrip() {
-  return (
-    <section className="relative py-16 bg-navy-900 border-y border-white/[0.06]">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-        <ScrollReveal>
-          <p className="text-center font-mono text-sm tracking-[0.2em] uppercase text-text-tertiary mb-12">
-            AI Infrastructure for Operations, Intelligence &amp; Scale
-          </p>
-        </ScrollReveal>
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0">
+  useGSAP(
+    () => {
+      if (shouldReduceMotion || !sectionRef.current) return;
+
+      // Animate the top line
+      const line = sectionRef.current.querySelector(".strip-line");
+      if (line) {
+        gsap.fromTo(
+          line,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            duration: 1.2,
+            ease: "power2.inOut",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 90%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    },
+    { scope: sectionRef }
+  );
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative py-20 md:py-24"
+      style={{ background: "linear-gradient(180deg, #0a0e1a 0%, #0d1224 50%, #0a0e1a 100%)" }}
+    >
+      {/* Top accent line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[600px] h-px">
+        <div
+          className="strip-line w-full h-full origin-center"
+          style={{
+            background: "linear-gradient(90deg, transparent, rgba(0, 180, 216, 0.4), transparent)",
+          }}
+        />
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
+        {/* Tagline */}
+        <p className="text-center font-mono text-xs tracking-[0.25em] uppercase text-cyan-400/50 mb-16">
+          Trusted Infrastructure for Enterprise AI
+        </p>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-0">
           {stats.map((stat, i) => (
-            <ScrollReveal key={i} delay={i * 0.1}>
-              <div
-                className={`text-center ${
-                  i < stats.length - 1
-                    ? "md:border-r md:border-white/[0.06]"
-                    : ""
-                }`}
-              >
-                <div className="text-4xl md:text-5xl font-bold text-text-primary text-glow-cyan mb-2">
+            <div
+              key={i}
+              className={`relative text-center group ${
+                i < stats.length - 1
+                  ? "lg:border-r lg:border-white/[0.04]"
+                  : ""
+              }`}
+            >
+              {/* Subtle glow behind number */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-cyan-400/[0.03] blur-2xl pointer-events-none" />
+
+              <div className="relative">
+                <div className="text-5xl md:text-6xl font-bold text-text-primary tracking-tight mb-3">
                   {stat.display ? (
-                    stat.display
+                    <span className="text-glow-cyan">{stat.display}</span>
                   ) : (
-                    <AnimatedCounter
-                      target={stat.value!}
-                      suffix={stat.suffix}
-                    />
+                    <span className="text-glow-cyan">
+                      <AnimatedCounter
+                        target={stat.value!}
+                        suffix={stat.suffix}
+                        prefix={stat.prefix}
+                      />
+                    </span>
                   )}
                 </div>
-                <p className="text-sm text-text-secondary">{stat.label}</p>
+                <p className="text-sm text-text-secondary/80 font-mono tracking-wide uppercase">
+                  {stat.label}
+                </p>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </div>
+
+      {/* Bottom accent line */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[600px] h-px"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(0, 180, 216, 0.2), transparent)",
+        }}
+      />
     </section>
   );
 }

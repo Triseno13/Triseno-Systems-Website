@@ -37,7 +37,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="relative w-36 h-9">
               <Image
-                src="/images/logo.jpeg"
+                src="/images/triseno-logo.png"
                 alt="Triseno Systems"
                 fill
                 className="object-contain object-left"
