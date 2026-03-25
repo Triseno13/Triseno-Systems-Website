@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@netlify/plugin-nextjs": "^5.15.9",
     "@phosphor-icons/react": "^2.1.10",
     "framer-motion": "^12.38.0",
     "geist": "^1.7.0",
