@@ -190,6 +190,8 @@ export default function Hero() {
       const sub = containerRef.current.querySelector(".hero-sub");
       const ctas = containerRef.current.querySelector(".hero-ctas");
 
+      if (!sub || !ctas || words.length === 0) return;
+
       if (shouldReduceMotion) {
         // Ensure everything is visible even with reduced motion
         gsap.set([words, sub, ctas], { opacity: 1, y: 0, scale: 1 });

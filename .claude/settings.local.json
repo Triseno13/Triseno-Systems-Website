@@ -5,7 +5,19 @@
       "Bash(npm run:*)",
       "Bash(start http://localhost:3000)",
       "Bash(npx next:*)",
-      "Bash(find 'c:/Users/trist/Triseno Website v2 AG/src' -type f \\\\\\(-name *.json -o -name *.config.* \\\\\\))"
+      "Bash(find 'c:/Users/trist/Triseno Website v2 AG/src' -type f \\\\\\(-name *.json -o -name *.config.* \\\\\\))",
+      "Bash(find 'c:\\\\Users\\\\trist\\\\Triseno Website v2 AG\\\\src' -type f \\\\\\(-name *theme* -o -name *style* -o -name *util* \\\\\\))",
+      "Bash(netlify status:*)",
+      "Bash(netlify deploy:*)",
+      "Bash(netlify watch:*)",
+      "Bash(netlify api:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(python3 -c \"import sys,json; deploys=json.load\\(sys.stdin\\); [print\\(f''''{d[\"\"id\"\"]} | {d[\"\"state\"\"]} | {d[\"\"created_at\"\"]} | {d.get\\(\"\"commit_message\"\",\"\"N/A\"\"\\)[:60]}''''\\) for d in deploys[:3]]\")",
+      "Bash(python3 -c \"import sys,json; deploys=json.load\\(sys.stdin\\); [print\\(f''''{d[\"\"id\"\"]} | {d[\"\"state\"\"]} | {d[\"\"created_at\"\"]} | {str\\(d.get\\(\"\"commit_message\"\",\"\"N/A\"\"\\)\\)[:60]}''''\\) for d in deploys[:3]]\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://trisenosystems.com)",
+      "Bash(curl -s https://trisenosystems.com)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://trisenosystems.com/_next/static/chunks/0dgq26a5_oy.a.js\")",
+      "Bash(claude update:*)"
     ]
   }
 }
