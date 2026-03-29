@@ -13,7 +13,7 @@ const BRAND = {
   border: "rgba(0,229,255,0.08)",
 };
 
-const PROJECTS = [
+const PROJECTS: Project[] = [
   {
     id: "google",
     company: "Google",
@@ -78,6 +78,16 @@ const PROJECTS = [
 
 type VibeType = "google" | "meta" | "spotify" | "epic" | "apple" | "linkedin";
 
+interface Project {
+  id: string;
+  company: string;
+  event: string;
+  description: string;
+  tags: string[];
+  accent: string;
+  vibe: VibeType;
+}
+
 function VibeAccent({ vibe, hovered }: { vibe: VibeType; hovered: boolean }) {
   const o = hovered ? 0.14 : 0.04;
   const styles: Record<VibeType, React.CSSProperties> = {
@@ -91,16 +101,6 @@ function VibeAccent({ vibe, hovered }: { vibe: VibeType; hovered: boolean }) {
   return (
     <div style={{ position: "absolute", inset: 0, transition: "all 0.6s ease", ...styles[vibe] }} />
   );
-}
-
-interface Project {
-  id: string;
-  company: string;
-  event: string;
-  description: string;
-  tags: string[];
-  accent: string;
-  vibe: VibeType;
 }
 
 function PortfolioCard({ project, index }: { project: Project; index: number }) {

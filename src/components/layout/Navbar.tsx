@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Capabilities", href: "#capabilities" },
   { label: "Process", href: "#process" },
   { label: "Work", href: "#showcase" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -26,10 +27,14 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollTo = (href: string) => {
+  const navigate = (href: string) => {
     setMobileOpen(false);
-    const el = document.getElementById(href.slice(1));
-    el?.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      const el = document.getElementById(href.slice(1));
+      el?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = href;
+    }
   };
 
   return (
@@ -48,7 +53,7 @@ export default function Navbar() {
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
-                scrollTo("#home");
+                navigate("#home");
               }}
               className="relative flex-shrink-0"
             >
@@ -70,7 +75,7 @@ export default function Navbar() {
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollTo(link.href);
+                    navigate(link.href);
                   }}
                   className="relative text-sm text-text-secondary hover:text-text-primary transition-colors duration-300 group"
                 >
@@ -120,7 +125,7 @@ export default function Navbar() {
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollTo(link.href);
+                    navigate(link.href);
                   }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
