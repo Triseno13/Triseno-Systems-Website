@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Capabilities", href: "#capabilities" },
   { label: "Process", href: "#process" },
   { label: "Work", href: "#showcase" },
+  { label: "Web Design", href: "/web-design" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "#contact" },
 ];
