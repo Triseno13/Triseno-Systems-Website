@@ -100,6 +100,12 @@ body {
   background-clip: text;
 }
 
+/* ─── Ticker Animation ─── */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
   width: 6px;
