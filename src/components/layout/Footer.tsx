@@ -17,14 +17,14 @@ const navLinks = [
 ];
 
 const serviceLinks = [
-  "AI Operations Audit",
-  "Multi-Agent Orchestration",
-  "Product & Catalog Intelligence",
-  "Workflow Compression",
-  "Revenue Operations",
-  "Website Design & Development",
-  "Broadcast & Production AI",
-  "Infrastructure Retainers",
+  { label: "AI Operations Audit", href: null },
+  { label: "Multi-Agent Orchestration", href: null },
+  { label: "Product & Catalog Intelligence", href: null },
+  { label: "Workflow Compression", href: null },
+  { label: "Revenue Operations", href: null },
+  { label: "Website Design & Development", href: "/web-design" },
+  { label: "Broadcast & Production AI", href: null },
+  { label: "Infrastructure Retainers", href: null },
 ];
 
 const socialLinks = [
@@ -89,10 +89,19 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {serviceLinks.map((service) => (
-                <li key={service}>
-                  <span className="text-sm text-text-secondary">
-                    {service}
-                  </span>
+                <li key={service.label}>
+                  {service.href ? (
+                    <a
+                      href={service.href}
+                      className="text-sm text-text-secondary hover:text-cyan-400 transition-colors duration-300"
+                    >
+                      {service.label}
+                    </a>
+                  ) : (
+                    <span className="text-sm text-text-secondary">
+                      {service.label}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>

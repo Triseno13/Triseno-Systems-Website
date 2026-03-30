@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { List, X } from "@phosphor-icons/react";
+import { List, X, PenNib } from "@phosphor-icons/react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 
@@ -11,7 +11,6 @@ const navLinks = [
   { label: "Capabilities", href: "#capabilities" },
   { label: "Process", href: "#process" },
   { label: "Work", href: "#showcase" },
-  { label: "Web Design", href: "#web-design" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "#contact" },
 ];
@@ -84,6 +83,33 @@ export default function Navbar() {
                   <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan-400 transition-all duration-300 group-hover:w-full" />
                 </a>
               ))}
+
+              {/* Divider */}
+              <div className="w-px h-5 bg-white/[0.08]" />
+
+              {/* Web Design — featured link */}
+              <a
+                href="/web-design"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/web-design");
+                }}
+                className="wd-nav-link group relative isolate flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium text-cyan-400 transition-all duration-300 hover:text-text-primary"
+              >
+                {/* Gradient border via pseudo-element */}
+                <span className="absolute inset-0 rounded-full border border-cyan-400/25 transition-all duration-300 group-hover:border-cyan-400/50" />
+
+                {/* Glow background on hover */}
+                <span className="absolute inset-0 rounded-full bg-cyan-400/[0.04] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                {/* Shimmer sweep */}
+                <span className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                  <span className="wd-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-cyan-400/[0.08] to-transparent" />
+                </span>
+
+                <PenNib size={14} weight="duotone" className="relative z-10" />
+                <span className="relative z-10">Web Design</span>
+              </a>
             </div>
 
             {/* Desktop CTA */}
@@ -136,11 +162,39 @@ export default function Navbar() {
                   {link.label}
                 </motion.a>
               ))}
+
+              {/* Divider */}
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ delay: navLinks.length * 0.1, duration: 0.4 }}
+                className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+              />
+
+              {/* Web Design — featured mobile link */}
+              <motion.a
+                href="/web-design"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/web-design");
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: (navLinks.length + 0.5) * 0.1,
+                  duration: 0.4,
+                }}
+                className="relative flex items-center gap-3 px-6 py-3 rounded-full border border-cyan-400/25 text-cyan-400 text-xl font-medium hover:border-cyan-400/50 hover:bg-cyan-400/[0.06] transition-all duration-300"
+              >
+                <PenNib size={20} weight="duotone" />
+                Web Design
+              </motion.a>
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: navLinks.length * 0.1,
+                  delay: (navLinks.length + 1) * 0.1,
                   duration: 0.4,
                 }}
               >
