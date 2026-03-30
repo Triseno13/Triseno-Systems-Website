@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { List, X, PenNib } from "@phosphor-icons/react";
-import Image from "next/image";
 import Button from "@/components/ui/Button";
+import Logo from "@/components/ui/Logo";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -49,23 +49,14 @@ export default function Navbar() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a
+            <Logo
+              variant="navbar"
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
                 navigate("#home");
               }}
-              className="relative flex-shrink-0"
-            >
-              <Image
-                src="/images/triseno-logo.jpeg"
-                alt="Triseno Systems"
-                width={120}
-                height={60}
-                className="h-12 w-auto object-contain"
-                priority
-              />
-            </a>
+            />
 
             {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-8">

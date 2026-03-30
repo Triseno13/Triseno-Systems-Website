@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   description:
     "Multi-agent orchestration, workflow compression, and decision-layer automation. Triseno Systems builds the operational AI layer for complex enterprises.",
   icons: {
-    icon: "/images/triseno-logo.jpeg",
-    apple: "/images/triseno-logo.jpeg",
+    icon: "/images/triseno-logo.png",
+    apple: "/images/triseno-logo.png",
   },
   openGraph: {
     title: "Triseno Systems | AI Infrastructure for Operations & Scale",

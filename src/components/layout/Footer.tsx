@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import {
   LinkedinLogo,
   XLogo,
   InstagramLogo,
   GithubLogo,
 } from "@phosphor-icons/react";
+import Logo from "@/components/ui/Logo";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -46,14 +46,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="relative w-40 h-20">
-              <Image
-                src="/images/triseno-logo.jpeg"
-                alt="Triseno Systems"
-                fill
-                className="object-contain object-left"
-              />
-            </div>
+            <Logo variant="footer" />
             <p className="text-sm text-text-secondary leading-relaxed">
               AI infrastructure for operations, intelligence, and scale.
             </p>
