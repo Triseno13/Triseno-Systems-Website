@@ -49,29 +49,7 @@ export default function WebDesignHero() {
         }
       );
 
-      // Pulse the AI badge
-      gsap.to(visualRef.current.querySelector(".ai-badge"), {
-        boxShadow: "0 0 40px rgba(0, 180, 216, 0.4)",
-        duration: 2,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
-
-      // Floating dots animation
-      const dots = visualRef.current.querySelectorAll(".float-dot");
-      dots.forEach((dot, i) => {
-        gsap.to(dot, {
-          y: `random(-20, 20)`,
-          x: `random(-15, 15)`,
-          opacity: `random(0.3, 0.8)`,
-          duration: `random(3, 5)`,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: i * 0.4,
-        });
-      });
+      // Badge glow and floating dots moved to CSS keyframes
     },
     { scope: visualRef, dependencies: [shouldReduceMotion] }
   );
@@ -137,12 +115,12 @@ export default function WebDesignHero() {
             }}
             className="relative hidden lg:block"
           >
-            {/* Floating dots */}
-            <div className="float-dot absolute top-8 right-12 w-2 h-2 rounded-full bg-cyan-400/40" />
-            <div className="float-dot absolute top-1/3 right-4 w-1.5 h-1.5 rounded-full bg-cyan-400/30" />
-            <div className="float-dot absolute bottom-16 right-20 w-2.5 h-2.5 rounded-full bg-cyan-600/30" />
-            <div className="float-dot absolute top-12 left-8 w-1.5 h-1.5 rounded-full bg-cyan-400/20" />
-            <div className="float-dot absolute bottom-8 left-16 w-2 h-2 rounded-full bg-cyan-600/25" />
+            {/* Floating dots — CSS animated */}
+            <div className="absolute top-8 right-12 w-2 h-2 rounded-full bg-cyan-400/40" style={{ animation: "float-y 3.5s ease-in-out infinite" }} />
+            <div className="absolute top-1/3 right-4 w-1.5 h-1.5 rounded-full bg-cyan-400/30" style={{ animation: "float-y 4s ease-in-out infinite 0.4s" }} />
+            <div className="absolute bottom-16 right-20 w-2.5 h-2.5 rounded-full bg-cyan-600/30" style={{ animation: "float-y 4.5s ease-in-out infinite 0.8s" }} />
+            <div className="absolute top-12 left-8 w-1.5 h-1.5 rounded-full bg-cyan-400/20" style={{ animation: "float-y 3.8s ease-in-out infinite 1.2s" }} />
+            <div className="absolute bottom-8 left-16 w-2 h-2 rounded-full bg-cyan-600/25" style={{ animation: "float-y 4.2s ease-in-out infinite 1.6s" }} />
 
             {/* Browser frame */}
             <div className="relative rounded-2xl border border-white/[0.06] bg-navy-800/50 p-4 shadow-2xl">
@@ -177,7 +155,7 @@ export default function WebDesignHero() {
             </div>
 
             {/* Floating AI badge */}
-            <div className="ai-badge absolute -bottom-4 -right-4 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-600 text-navy-950 text-xs font-bold tracking-[0.1em] shadow-[0_8px_30px_rgba(0,180,216,0.3)]">
+            <div className="absolute -bottom-4 -right-4 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-600 text-navy-950 text-xs font-bold tracking-[0.1em] shadow-[0_8px_30px_rgba(0,180,216,0.3)]" style={{ animation: "badge-glow 2s ease-in-out infinite" }}>
               AI-READY
             </div>
           </motion.div>

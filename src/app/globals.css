@@ -122,6 +122,55 @@ body {
   }
 }
 
+/* ─── GPU-Composited Animations (replace GSAP repeat:-1) ─── */
+
+@keyframes node-pulse {
+  0%, 100% { opacity: var(--pulse-max, 0.8); }
+  50% { opacity: 0.3; }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes ring-pulse {
+  0% { opacity: 0.4; transform: scale(0.8); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+@keyframes dash-flow {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes circuit-dash {
+  0% { stroke-dashoffset: 200; }
+  50% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 200; }
+}
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.05); }
+  50% { box-shadow: 0 0 60px rgba(0, 229, 255, 0.15), 0 0 120px rgba(0, 229, 255, 0.05); }
+}
+@keyframes particle-drift {
+  0% { opacity: 0.6; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(var(--dx, 10px), var(--dy, -15px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-node-pulse,
+  .anim-float-y,
+  .anim-ring-pulse,
+  .anim-dash-flow,
+  .anim-circuit-dash,
+  .anim-glow-breathe,
+  .anim-badge-glow,
+  .anim-particle-drift {
+    animation: none !important;
+  }
+}
+
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
   width: 6px;

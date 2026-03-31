@@ -51,14 +51,7 @@ export default function WebDesignWhyDifferent() {
         }
       );
 
-      // Badge pulse
-      gsap.to(visualRef.current.querySelector(".why-badge"), {
-        boxShadow: "0 0 40px rgba(0, 180, 216, 0.4)",
-        duration: 2,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
+      // Badge glow moved to CSS keyframes
     },
     { scope: visualRef, dependencies: [shouldReduceMotion] }
   );
@@ -132,7 +125,7 @@ export default function WebDesignWhyDifferent() {
               </div>
 
               {/* Floating badge */}
-              <div className="why-badge absolute -bottom-3 -right-3 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-600 text-navy-950 text-xs font-bold tracking-[0.1em] shadow-[0_8px_30px_rgba(0,180,216,0.3)]">
+              <div className="absolute -bottom-3 -right-3 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-600 text-navy-950 text-xs font-bold tracking-[0.1em] shadow-[0_8px_30px_rgba(0,180,216,0.3)]" style={{ animation: "badge-glow 2s ease-in-out infinite" }}>
                 AI-READY
               </div>
             </div>

@@ -80,58 +80,7 @@ function NetworkVisualization() {
   const svgRef = useRef<SVGSVGElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  useGSAP(
-    () => {
-      if (shouldReduceMotion || !svgRef.current) return;
-
-      // Pulse the nodes
-      const nodes = svgRef.current.querySelectorAll(".net-node");
-      nodes.forEach((node, i) => {
-        gsap.to(node, {
-          opacity: 0.3,
-          duration: 1.5 + i * 0.3,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-          delay: i * 0.5,
-        });
-      });
-
-      // Animate data flow along edges
-      const flows = svgRef.current.querySelectorAll(".data-flow");
-      flows.forEach((flow, i) => {
-        gsap.fromTo(
-          flow,
-          { strokeDashoffset: 100 },
-          {
-            strokeDashoffset: 0,
-            duration: 3 + i * 0.5,
-            ease: "none",
-            repeat: -1,
-            delay: i * 0.8,
-          }
-        );
-      });
-
-      // Pulse the rings
-      const rings = svgRef.current.querySelectorAll(".pulse-ring");
-      rings.forEach((ring, i) => {
-        gsap.fromTo(
-          ring,
-          { scale: 0.8, opacity: 0.4, transformOrigin: "center" },
-          {
-            scale: 1.4,
-            opacity: 0,
-            duration: 2.5,
-            ease: "power1.out",
-            repeat: -1,
-            delay: i * 1.2,
-          }
-        );
-      });
-    },
-    { scope: svgRef }
-  );
+  // All infinite animations moved to CSS keyframes for GPU compositing
 
   return (
     <svg
@@ -141,106 +90,69 @@ function NetworkVisualization() {
       className="w-full h-full"
       aria-hidden="true"
     >
-      {/* Subtle grid */}
-      {Array.from({ length: 20 }).map((_, i) => (
+      {/* Subtle grid (reduced) */}
+      {Array.from({ length: 10 }).map((_, i) => (
         <line
           key={`vg-${i}`}
-          x1={i * 42}
+          x1={i * 84}
           y1="0"
-          x2={i * 42}
+          x2={i * 84}
           y2="200"
           stroke="rgba(0, 180, 216, 0.03)"
           strokeWidth="0.5"
         />
       ))}
-      {Array.from({ length: 6 }).map((_, i) => (
+      {Array.from({ length: 4 }).map((_, i) => (
         <line
           key={`hg-${i}`}
           x1="0"
-          y1={i * 40}
+          y1={i * 60}
           x2="800"
-          y2={i * 40}
+          y2={i * 60}
           stroke="rgba(0, 180, 216, 0.03)"
           strokeWidth="0.5"
         />
       ))}
 
-      {/* Connection lines */}
-      <path
-        className="data-flow"
-        d="M120 100 L260 60"
-        stroke="rgba(0, 180, 216, 0.2)"
-        strokeWidth="1"
-        strokeDasharray="4 8"
-      />
-      <path
-        className="data-flow"
-        d="M120 100 L280 140"
-        stroke="rgba(0, 180, 216, 0.15)"
-        strokeWidth="1"
-        strokeDasharray="4 8"
-      />
-      <path
-        className="data-flow"
-        d="M260 60 L400 100"
-        stroke="rgba(0, 180, 216, 0.2)"
-        strokeWidth="1"
-        strokeDasharray="4 8"
-      />
-      <path
-        className="data-flow"
-        d="M280 140 L400 100"
-        stroke="rgba(0, 180, 216, 0.15)"
-        strokeWidth="1"
-        strokeDasharray="4 8"
-      />
-      <path
-        className="data-flow"
-        d="M400 100 L540 55"
-        stroke="rgba(0, 180, 216, 0.2)"
-        strokeWidth="1"
-        strokeDasharray="4 8"
-      />
-      <path
-        className="data-flow"
-        d="M400 100 L520 145"
-        stroke="rgba(0, 180, 216, 0.15)"
-        strokeWidth="1"
-        strokeDasharray="4 8"
-      />
-      <path
-        className="data-flow"
-        d="M540 55 L680 100"
-        stroke="rgba(0, 180, 216, 0.2)"
-        strokeWidth="1"
-        strokeDasharray="4 8"
-      />
-      <path
-        className="data-flow"
-        d="M520 145 L680 100"
-        stroke="rgba(0, 180, 216, 0.15)"
-        strokeWidth="1"
-        strokeDasharray="4 8"
-      />
+      {/* Connection lines — CSS animated */}
+      {[
+        { d: "M120 100 L260 60", o: 0.2, delay: 0 },
+        { d: "M120 100 L280 140", o: 0.15, delay: 0.8 },
+        { d: "M260 60 L400 100", o: 0.2, delay: 1.6 },
+        { d: "M280 140 L400 100", o: 0.15, delay: 2.4 },
+        { d: "M400 100 L540 55", o: 0.2, delay: 3.2 },
+        { d: "M400 100 L520 145", o: 0.15, delay: 4 },
+        { d: "M540 55 L680 100", o: 0.2, delay: 4.8 },
+        { d: "M520 145 L680 100", o: 0.15, delay: 5.6 },
+      ].map((line, i) => (
+        <path
+          key={`flow-${i}`}
+          d={line.d}
+          stroke={`rgba(0, 180, 216, ${line.o})`}
+          strokeWidth="1"
+          strokeDasharray="4 8"
+          style={{ animation: `dash-flow ${3 + i * 0.5}s linear infinite ${line.delay}s` }}
+        />
+      ))}
 
-      {/* Central hub node */}
-      <circle className="net-node" cx="400" cy="100" r="8" fill="#00b4d8" opacity="0.8" />
-      <circle className="pulse-ring" cx="400" cy="100" r="16" stroke="rgba(0, 180, 216, 0.3)" strokeWidth="1" fill="none" />
+      {/* Central hub node — CSS animated */}
+      <circle cx="400" cy="100" r="8" fill="#00b4d8" style={{ animation: "node-pulse 1.5s ease-in-out infinite", ["--pulse-max" as string]: "0.8" }} />
+      <circle cx="400" cy="100" r="16" stroke="rgba(0, 180, 216, 0.3)" strokeWidth="1" fill="none" style={{ animation: "ring-pulse 2.5s ease-out infinite", transformOrigin: "400px 100px" }} />
       <circle cx="400" cy="100" r="3" fill="#fff" opacity="0.9" />
 
       {/* Input nodes - left */}
-      <circle className="net-node" cx="120" cy="100" r="5" fill="#00b4d8" opacity="0.6" />
-      <circle className="pulse-ring" cx="120" cy="100" r="10" stroke="rgba(0, 180, 216, 0.2)" strokeWidth="0.5" fill="none" />
+      <circle cx="120" cy="100" r="5" fill="#00b4d8" style={{ animation: "node-pulse 1.8s ease-in-out infinite 0.5s", ["--pulse-max" as string]: "0.6" }} />
+      <circle cx="120" cy="100" r="10" stroke="rgba(0, 180, 216, 0.2)" strokeWidth="0.5" fill="none" style={{ animation: "ring-pulse 2.5s ease-out infinite 1.2s", transformOrigin: "120px 100px" }} />
 
       {/* Processing nodes */}
-      <circle className="net-node" cx="260" cy="60" r="4" fill="#00b4d8" opacity="0.7" />
-      <circle className="net-node" cx="280" cy="140" r="4" fill="#00b4d8" opacity="0.5" />
-      <circle className="net-node" cx="540" cy="55" r="4" fill="#00b4d8" opacity="0.6" />
-      <circle className="net-node" cx="520" cy="145" r="4" fill="#00b4d8" opacity="0.5" />
+      <circle cx="260" cy="60" r="4" fill="#00b4d8" style={{ animation: "node-pulse 2.1s ease-in-out infinite 1s", ["--pulse-max" as string]: "0.7" }} />
+      <circle cx="280" cy="140" r="4" fill="#00b4d8" style={{ animation: "node-pulse 1.5s ease-in-out infinite 1.5s", ["--pulse-max" as string]: "0.5" }} />
+      <circle cx="540" cy="55" r="4" fill="#00b4d8" style={{ animation: "node-pulse 1.8s ease-in-out infinite 2s", ["--pulse-max" as string]: "0.6" }} />
+      <circle cx="520" cy="145" r="4" fill="#00b4d8" style={{ animation: "node-pulse 2.1s ease-in-out infinite 2.5s", ["--pulse-max" as string]: "0.5" }} />
 
       {/* Output node - right */}
-      <circle className="net-node" cx="680" cy="100" r="5" fill="#00b4d8" opacity="0.6" />
-      <circle className="pulse-ring" cx="680" cy="100" r="10" stroke="rgba(0, 180, 216, 0.2)" strokeWidth="0.5" fill="none" />
+      <circle cx="680" cy="100" r="5" fill="#00b4d8" style={{ animation: "node-pulse 1.5s ease-in-out infinite 3s", ["--pulse-max" as string]: "0.6" }} />
+      <circle cx="680" cy="100" r="10" stroke="rgba(0, 180, 216, 0.2)" strokeWidth="0.5" fill="none" style={{ animation: "ring-pulse 2.5s ease-out infinite 2.4s", transformOrigin: "680px 100px" }} />
 
       {/* Labels */}
       <text x="120" y="125" textAnchor="middle" fill="rgba(0, 180, 216, 0.4)" fontSize="8" fontFamily="monospace">INPUT</text>

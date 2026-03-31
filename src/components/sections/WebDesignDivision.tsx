@@ -55,14 +55,7 @@ function DivisionBreak() {
         }
       );
 
-      // Pulse the division badge
-      gsap.to(breakRef.current.querySelector(".division-badge"), {
-        boxShadow: "0 0 60px rgba(0, 229, 255, 0.15), 0 0 120px rgba(0, 229, 255, 0.05)",
-        duration: 3,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
+      // Badge glow moved to CSS keyframes
     },
     { scope: breakRef }
   );
@@ -81,7 +74,7 @@ function DivisionBreak() {
         <ScrollReveal>
           <div className="flex flex-col items-center text-center">
             {/* Division badge */}
-            <div className="division-badge inline-flex items-center gap-3 px-6 py-3 rounded-full border border-cyan-400/20 bg-cyan-400/[0.04] backdrop-blur-sm mb-8">
+            <div className="division-badge inline-flex items-center gap-3 px-6 py-3 rounded-full border border-cyan-400/20 bg-cyan-400/[0.04] backdrop-blur-sm mb-8" style={{ animation: "badge-glow 3s ease-in-out infinite" }}>
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               <span className="font-mono text-[11px] tracking-[0.25em] uppercase text-cyan-400 font-medium">
                 Division
@@ -185,26 +178,7 @@ function WDHero() {
         }
       );
 
-      // Float the stat cards
-      const stats = visualRef.current.querySelectorAll(".wd-float-stat");
-      stats.forEach((stat, i) => {
-        gsap.to(stat, {
-          y: -8 + i * 4,
-          duration: 3 + i * 0.5,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-        });
-      });
-
-      // Pulse the AI badge
-      gsap.to(visualRef.current.querySelector(".wd-ai-badge"), {
-        boxShadow: "0 0 40px rgba(0, 180, 216, 0.4)",
-        duration: 2,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
+      // Float and badge glow moved to CSS keyframes
     },
     { scope: visualRef }
   );
@@ -308,14 +282,14 @@ function WDHero() {
               </div>
 
               {/* Floating stat cards */}
-              <div className="wd-float-stat absolute -top-2 -right-4 lg:right-[-2rem] px-4 py-3 rounded-xl bg-navy-800/90 border border-white/[0.08] backdrop-blur-sm shadow-[0_16px_40px_rgba(0,0,0,0.5)] z-10">
+              <div className="wd-float-stat absolute -top-2 -right-4 lg:right-[-2rem] px-4 py-3 rounded-xl bg-navy-800/90 border border-white/[0.08] backdrop-blur-sm shadow-[0_16px_40px_rgba(0,0,0,0.5)] z-10" style={{ animation: "float-y 3s ease-in-out infinite" }}>
                 <div className="font-mono text-[9px] text-text-tertiary tracking-[0.1em] uppercase mb-1">
                   Conversion
                 </div>
                 <div className="text-xl font-bold text-cyan-400">+147%</div>
               </div>
 
-              <div className="wd-float-stat absolute -bottom-2 -left-4 lg:left-[-2rem] px-4 py-3 rounded-xl bg-navy-800/90 border border-white/[0.08] backdrop-blur-sm shadow-[0_16px_40px_rgba(0,0,0,0.5)] z-10">
+              <div className="wd-float-stat absolute -bottom-2 -left-4 lg:left-[-2rem] px-4 py-3 rounded-xl bg-navy-800/90 border border-white/[0.08] backdrop-blur-sm shadow-[0_16px_40px_rgba(0,0,0,0.5)] z-10" style={{ animation: "float-y 3.5s ease-in-out infinite 0.5s" }}>
                 <div className="font-mono text-[9px] text-text-tertiary tracking-[0.1em] uppercase mb-1">
                   Perf Score
                 </div>
@@ -323,7 +297,7 @@ function WDHero() {
               </div>
 
               {/* AI-Ready badge */}
-              <div className="wd-ai-badge absolute -bottom-3 right-8 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-cyan-600 text-navy-950 text-[10px] font-bold tracking-[0.12em] uppercase shadow-[0_8px_30px_rgba(0,180,216,0.3)]">
+              <div className="wd-ai-badge absolute -bottom-3 right-8 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-cyan-600 text-navy-950 text-[10px] font-bold tracking-[0.12em] uppercase shadow-[0_8px_30px_rgba(0,180,216,0.3)]" style={{ animation: "badge-glow 2s ease-in-out infinite" }}>
                 AI-Ready
               </div>
             </div>
@@ -396,13 +370,19 @@ function WDServices() {
 
       const cards = cardsRef.current.querySelectorAll(".wd-bento-card");
       cards.forEach((card) => {
+        let ticking = false;
         card.addEventListener("mousemove", (e: Event) => {
-          const mouseEvent = e as MouseEvent;
-          const rect = (card as HTMLElement).getBoundingClientRect();
-          const x = mouseEvent.clientX - rect.left;
-          const y = mouseEvent.clientY - rect.top;
-          (card as HTMLElement).style.setProperty("--mx", `${x}px`);
-          (card as HTMLElement).style.setProperty("--my", `${y}px`);
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            const mouseEvent = e as MouseEvent;
+            const rect = (card as HTMLElement).getBoundingClientRect();
+            const x = mouseEvent.clientX - rect.left;
+            const y = mouseEvent.clientY - rect.top;
+            (card as HTMLElement).style.setProperty("--mx", `${x}px`);
+            (card as HTMLElement).style.setProperty("--my", `${y}px`);
+            ticking = false;
+          });
         });
       });
     },

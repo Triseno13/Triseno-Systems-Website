@@ -132,19 +132,7 @@ function ArchitectureDiagram({
         );
       });
 
-      // Pulse glow rings after build
-      const rings = svgRef.current.querySelectorAll(".arch-ring");
-      rings.forEach((ring, i) => {
-        gsap.to(ring, {
-          opacity: 0,
-          scale: 1.8,
-          duration: 2,
-          ease: "power1.out",
-          repeat: -1,
-          delay: 2 + i * 0.6,
-          transformOrigin: "center",
-        });
-      });
+      // Rings now use CSS animation instead of GSAP repeat:-1
 
       // Labels fade in
       const labels = svgRef.current.querySelectorAll(".arch-label");
@@ -176,13 +164,13 @@ function ArchitectureDiagram({
       className="w-full h-full"
       aria-hidden="true"
     >
-      {/* Grid dots */}
-      {Array.from({ length: 8 }).map((_, row) =>
-        Array.from({ length: 16 }).map((_, col) => (
+      {/* Grid dots (reduced for performance) */}
+      {Array.from({ length: 4 }).map((_, row) =>
+        Array.from({ length: 8 }).map((_, col) => (
           <circle
             key={`gd-${row}-${col}`}
-            cx={20 + col * 40}
-            cy={10 + row * 20}
+            cx={40 + col * 80}
+            cy={20 + row * 40}
             r="0.5"
             fill="rgba(0, 180, 216, 0.08)"
           />
@@ -208,14 +196,16 @@ function ArchitectureDiagram({
       {nodes.map((node, i) => (
         <g key={`node-${i}`}>
           <circle
-            className="arch-ring"
             cx={node.x}
             cy={node.y}
             r={node.size * 2}
             stroke="rgba(0, 180, 216, 0.2)"
             strokeWidth="0.5"
             fill="none"
-            opacity="0.4"
+            style={{
+              animation: `ring-pulse 2s ease-out infinite ${2 + i * 0.6}s`,
+              transformOrigin: `${node.x}px ${node.y}px`,
+            }}
           />
           <circle
             className="arch-node"

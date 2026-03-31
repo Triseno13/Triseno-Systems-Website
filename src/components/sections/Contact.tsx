@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { useGSAP, gsap } from "@/hooks/useGSAPSetup";
 import { useReducedMotion } from "framer-motion";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import {
@@ -41,24 +40,7 @@ export default function Contact() {
   const shouldReduceMotion = useReducedMotion();
   const [submitted, setSubmitted] = useState(false);
 
-  useGSAP(
-    () => {
-      if (shouldReduceMotion || !sectionRef.current) return;
-
-      const glow = sectionRef.current.querySelector(".contact-glow");
-      if (glow) {
-        gsap.to(glow, {
-          scale: 1.1,
-          opacity: 0.6,
-          duration: 4,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-        });
-      }
-    },
-    { scope: sectionRef }
-  );
+  // Glow animation moved to CSS keyframes
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -83,12 +65,12 @@ export default function Contact() {
       ref={sectionRef}
       className="relative py-24 md:py-32 lg:py-40 overflow-hidden"
     >
-      {/* Background radial glow */}
+      {/* Background radial glow — CSS animated */}
       <div
-        className="contact-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none opacity-40"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
-          background:
-            "radial-gradient(circle, rgba(0, 180, 216, 0.08) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(0, 180, 216, 0.08) 0%, transparent 70%)",
+          animation: "glow-breathe 4s ease-in-out infinite",
         }}
       />
 

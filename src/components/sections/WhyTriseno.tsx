@@ -70,18 +70,7 @@ export default function WhyTriseno() {
         );
       });
 
-      // Subtle continuous float animation on the icon containers
-      const icons = cardsRef.current.querySelectorAll(".diff-icon-wrap");
-      icons.forEach((icon, i) => {
-        gsap.to(icon, {
-          y: -6,
-          duration: 2.5 + i * 0.3,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-          delay: i * 0.5,
-        });
-      });
+      // Float animation moved to CSS keyframes
     },
     { scope: sectionRef }
   );
@@ -125,7 +114,7 @@ export default function WhyTriseno() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-cyan-400/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
               <div className="relative z-10">
-                <div className="diff-icon-wrap mb-8">
+                <div className="diff-icon-wrap mb-8" style={{ animation: `float-y ${2.5 + i * 0.3}s ease-in-out infinite ${i * 0.5}s` }}>
                   <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-xl bg-navy-700/60 border border-white/[0.06]">
                     <diff.icon
                       size={28}
