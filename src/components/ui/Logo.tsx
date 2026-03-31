@@ -16,19 +16,13 @@ export default function Logo({ variant, href, onClick }: LogoProps) {
   const isNavbar = variant === "navbar";
 
   const containerClasses = isNavbar
-    ? "relative flex-shrink-0 group px-5 py-2.5 rounded-xl border border-white/[0.10] shadow-[0_4px_30px_rgba(0,0,0,0.4),0_0_20px_rgba(0,180,216,0.06)] bg-[rgba(13,18,36,0.7)] backdrop-blur-md transition-all duration-500 hover:border-cyan-400/30 hover:shadow-[0_4px_30px_rgba(0,180,216,0.15),0_0_40px_rgba(0,180,216,0.08)]"
-    : "relative group inline-block px-6 py-3.5 rounded-xl border border-white/[0.10] shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_15px_rgba(0,180,216,0.05)] bg-[rgba(13,18,36,0.6)] backdrop-blur-md transition-all duration-500 hover:border-cyan-400/25 hover:shadow-[0_2px_24px_rgba(0,180,216,0.12)]";
-
-  const imageClasses = isNavbar
-    ? "h-11 w-auto object-contain relative z-10 brightness-125 contrast-110"
-    : "h-16 w-auto object-contain relative z-10 brightness-125 contrast-110";
+    ? "relative flex-shrink-0 group"
+    : "relative group inline-block";
 
   const motionProps = shouldReduceMotion
     ? {}
     : {
-        whileHover: isNavbar
-          ? { scale: 1.04, y: -1, transition: SPRING }
-          : { scale: 1.02, transition: SPRING },
+        whileHover: { scale: 1.05, transition: SPRING },
         whileTap: isNavbar
           ? { scale: 0.97, transition: SPRING }
           : undefined,
@@ -36,25 +30,21 @@ export default function Logo({ variant, href, onClick }: LogoProps) {
 
   const content = (
     <>
-      {/* Gradient overlay — top light shimmer */}
-      <span className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/[0.06] to-transparent pointer-events-none" />
+      {/* Ambient glow behind logo — always visible */}
+      <span
+        className="absolute inset-0 -inset-x-6 -inset-y-4 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: "radial-gradient(ellipse at center, rgba(0, 180, 216, 0.12) 0%, transparent 70%)",
+        }}
+      />
 
-      {/* Persistent subtle radial glow */}
-      <span className="absolute inset-0 -inset-x-2 -inset-y-1 rounded-xl bg-[radial-gradient(ellipse_at_center,rgba(0,180,216,0.05)_0%,transparent_70%)] pointer-events-none" />
-
-      {/* Inner radial glow — intensifies on hover */}
-      <span className="absolute inset-0 rounded-xl bg-[radial-gradient(ellipse_at_center,rgba(0,180,216,0.10)_0%,transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" />
-
-      {/* Bottom accent line */}
-      <span className="absolute bottom-0 left-2 right-2 h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent pointer-events-none" />
-
-      {/* Logo image */}
+      {/* Logo image — large and prominent */}
       <Image
         src="/images/triseno-logo.png"
         alt="Triseno Systems"
-        width={isNavbar ? 150 : 200}
-        height={isNavbar ? 75 : 100}
-        className={imageClasses}
+        width={isNavbar ? 220 : 260}
+        height={isNavbar ? 110 : 130}
+        className={`${isNavbar ? "h-16" : "h-20"} w-auto object-contain relative z-10 drop-shadow-[0_0_12px_rgba(0,180,216,0.25)] transition-[filter] duration-500 group-hover:drop-shadow-[0_0_20px_rgba(0,180,216,0.4)]`}
         priority={isNavbar}
       />
     </>
